@@ -1,0 +1,77 @@
+<main class="document-page">
+  <div class="document-column">
+    @if (deleted()) {
+      <section class="deleted-state" aria-live="polite">
+        <div class="deleted-icon" aria-hidden="true">×</div>
+        <h1>Статья удалена</h1>
+        <p>Её можно восстановить, пока вы не покинули эту страницу.</p>
+        <button class="restore-button" type="button" (click)="restoreArticle.emit()">Восстановить статью</button>
+      </section>
+    } @else {
+      <app-bread-crumbs></app-bread-crumbs>
+      <header class="document-header">
+        <input class="document-title" type="text" aria-label="Заголовок статьи" [formControl]="title">
+        <div class="save-status" [class.is-pending]="saveState() === 'pending' || saveState() === 'saving'" [class.has-error]="saveState() === 'error'" role="status" aria-live="polite">
+          @if (saveState() === 'saved') {
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" /></svg>
+            <span>Сохранено</span>
+          } @else if (saveState() === 'pending') {
+            <span>Есть изменения</span>
+          } @else if (saveState() === 'saving') {
+            <span>Сохранение…</span>
+          } @else {
+            <span>Не удалось сохранить</span>
+          }
+        </div>
+      </header>
+      <div class="article-workspace" [class.is-split]="mode() === 'split'">
+        @if (mode() !== 'preview') {
+          <tui-editor
+            class="document-editor"
+            appearance="none"
+            [formControl]="content"
+            [tools]="tools"
+            (loaded)="connectCodeSelection()"
+            (focusIn)="syncCodeLanguage()"
+            (mouseup)="syncCodeLanguage()"
+            (keyup)="syncCodeLanguage()">
+            <ng-container ngProjectAs="tools">
+              <label class="code-language-control">
+                <span>Язык кода</span>
+                <button
+                  tuiDropdown
+                  #dropdownTemplate="tuiDropdown"
+                  type="button"
+                  aria-label="Выбрать язык кода"
+                  aria-haspopup="listbox"
+                  [attr.aria-expanded]="codeLanguageMenuOpen()"
+                  [disabled]="!codeBlockAvailable()"
+                  (tuiDropdownOpenChange)="codeLanguageMenuOpen.set($event)"
+                  class="code-language-trigger">
+                  <span>{{ languageLabel() }}</span>
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+                </button>
+                <ng-template #dropdownTemplate>
+                  <div class="code-language-options" role="listbox" aria-label="Язык блока кода">
+                    @for (language of codeLanguages; track language.value) {
+                      <button
+                        class="code-language-option"
+                        type="button"
+                        role="option"
+                        [attr.aria-selected]="language.value === codeLanguage()"
+                        [class.is-selected]="language.value === codeLanguage()"
+                        (click)="setCodeLanguage(language.value)">{{ language.label }}</button>
+                    }
+                  </div>
+                </ng-template>
+              </label>
+            </ng-container>
+          </tui-editor>
+        }
+        @if (mode() !== 'edit') {
+          <article class="article-preview" [innerHTML]="content.value"></article>
+        }
+      </div>
+    }
+  </div>
+</main>

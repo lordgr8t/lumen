@@ -1,0 +1,101 @@
+@import 'src/variables.less';
+
+:host {
+	display: block;
+	position: relative;
+	flex: 0 0 52px;
+}
+
+.workspace-header {
+	display: flex;
+	height: 52px;
+	padding: 0 20px 0 16px;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: @border;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.mode-switch,
+.header-actions {
+	display: flex;
+	align-items: center;
+}
+
+.mode-switch {
+	padding: 3px;
+	gap: 2px;
+	border-radius: 7px;
+	background: @background;
+}
+
+.mode-button {
+	min-width: 48px;
+	height: 28px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	color: @secondary;
+	font-size: 12px;
+	cursor: pointer;
+	transition: color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.mode-button.is-active {
+	background: #fff;
+	color: @primary;
+	box-shadow: 0 1px 2px fade(#000, 12%);
+}
+
+.header-actions {
+	gap: 10px;
+}
+
+.icon-button,
+.avatar {
+	display: inline-flex;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.icon-button svg {
+	width: 16px;
+	height: 16px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.4;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.icon-button {
+	width: 30px;
+	border-radius: 5px;
+	color: @secondary;
+}
+
+.avatar {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: @primary-active;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.mode-button:focus-visible,
+.icon-button:focus-visible,
+.avatar:focus-visible {
+	outline: 2px solid @primary-active;
+	outline-offset: 2px;
+}
+// .code-language-options{
+//     z-index: 10000;
+// }

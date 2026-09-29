@@ -1,1 +1,422 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'src/variables.less';
+@import '@taiga-ui/styles/taiga-ui-theme.less';
+
+* {
+    font-family: @font;
+}
+
+body {
+    margin: 0;
+}
+
+html,
+body,
+app-root,
+tui-root {
+    min-height: 100%;
+}
+
+app-nav-menu {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    align-self: flex-start;
+    overflow: hidden;
+}
+
+app-nav-menu .chevron {
+    transition: transform 180ms ease;
+}
+
+app-nav-menu .section-expand {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 180ms ease, opacity 140ms ease;
+}
+
+app-nav-menu .section-expand.is-expanded {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+app-nav-menu .tree-item {
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+app-editor-wrapper .save-status {
+    display: inline-flex;
+    padding-top: 8px;
+    align-items: center;
+    gap: 6px;
+    color: @info;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+app-editor-wrapper .save-status svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: #34A853;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+app-editor-wrapper .save-status.is-pending {
+    color: @primary-active;
+}
+
+app-editor-wrapper .save-status.has-error {
+    color: #D92D20;
+}
+
+app-editor-wrapper .code-language-control {
+    position: relative;
+    display: inline-flex;
+    height: 30px;
+    align-items: center;
+    gap: 6px;
+    color: @secondary;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+app-editor-wrapper .code-language-trigger {
+    display: inline-flex;
+    max-width: 130px;
+    height: 26px;
+    padding: 0 7px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #E5E5EA;
+    border-radius: 4px;
+    background: #fff;
+    color: @primary;
+    font: inherit;
+    cursor: pointer;
+}
+
+app-editor-wrapper .code-language-trigger:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+app-editor-wrapper .code-language-trigger svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+}
+
+/* Remove absolute positioning - let TuiDropdown handle positioning via portal */
+app-editor-wrapper .code-language-options {
+    z-index: 9999; /* Ensure it's above all other elements */
+    display: grid;
+    min-width: 140px;
+    max-height: 240px;
+    padding: 4px;
+    overflow: auto;
+    border: 1px solid #E5E5EA;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 6px 18px fade(#1C1C1E, 14%);
+}
+
+app-editor-wrapper .code-language-option {
+    min-height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: @primary;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+app-editor-wrapper .code-language-option:hover,
+app-editor-wrapper .code-language-option.is-selected {
+    background: @primary-active-background;
+    color: @primary-active;
+}
+
+.menu-dismiss {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    border: 0;
+    background: transparent;
+}
+
+.header-menu {
+    position: absolute;
+    top: 44px;
+    z-index: 21;
+    width: 220px;
+    padding: 5px;
+    border: 1px solid #E5E5EA;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 8px 24px fade(#1C1C1E, 14%);
+}
+
+.more-menu {
+    right: 50px;
+}
+
+.profile-menu {
+    right: 12px;
+}
+
+.profile-summary {
+    display: grid;
+    padding: 9px 10px 11px;
+    gap: 3px;
+    border-bottom: @border;
+    font-size: 13px;
+}
+
+.profile-summary span {
+    color: @info;
+    font-size: 11px;
+}
+
+.menu-item {
+    display: flex;
+    width: 100%;
+    min-height: 36px;
+    padding: 0 9px;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    border-radius: 5px;
+    background: #fff;
+    color: @primary;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: @background;
+}
+
+.menu-item svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-item.danger-item,
+.danger-button {
+    color: #D92D20;
+}
+
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: grid;
+    padding: 20px;
+    place-items: center;
+    background: fade(#1C1C1E, 36%);
+    animation: overlay-fade-in 160ms ease-out both;
+}
+
+.settings-dialog {
+    width: min(100%, 420px);
+    padding: 24px;
+    border: 1px solid #E5E5EA;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 20px 60px fade(#1C1C1E, 20%);
+    box-sizing: border-box;
+    animation: dialog-enter 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes overlay-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes dialog-enter {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dialog-header {
+    display: flex;
+    margin-bottom: 22px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.dialog-header h2 {
+    margin: 0;
+    color: @primary;
+    font-size: 19px;
+}
+
+.dialog-header p {
+    margin: 6px 0 0;
+    color: @info;
+    font-size: 12px;
+}
+
+.dialog-close {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: @secondary;
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.field-label {
+    display: block;
+    margin: 15px 0 6px;
+    color: @primary;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.settings-input {
+    width: 100%;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid #D1D1D6;
+    border-radius: 5px;
+    background: #fff;
+    color: @primary;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.settings-input:focus-visible {
+    border-color: @primary-active;
+    outline: 2px solid fade(@primary-active, 20%);
+    outline-offset: 1px;
+}
+
+.field-error {
+    display: block;
+    margin-top: 5px;
+    color: #D92D20;
+    font-size: 11px;
+}
+
+.dialog-actions {
+    display: flex;
+    margin-top: 24px;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.secondary-button,
+.primary-button,
+.danger-button {
+    min-height: 36px;
+    padding: 0 13px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.secondary-button {
+    border-color: #D1D1D6;
+    background: #fff;
+    color: @primary;
+}
+
+.primary-button {
+    background: @primary-active;
+    color: #fff;
+}
+
+.danger-button {
+    background: #D92D20;
+    color: #fff;
+}
+
+.header-menu button:focus-visible,
+.settings-dialog button:focus-visible,
+.restore-button:focus-visible {
+    outline: 2px solid @primary-active;
+    outline-offset: 2px;
+}
+
+.deleted-state {
+    display: grid;
+    min-height: 55vh;
+    place-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.deleted-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: fade(#D92D20, 9%);
+    color: #D92D20;
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.deleted-state h1 {
+    margin: 16px 0 5px;
+    font-size: 21px;
+}
+
+.deleted-state p {
+    margin: 0 0 18px;
+    color: @info;
+    font-size: 13px;
+}
+
+.restore-button {
+    min-height: 36px;
+    padding: 0 13px;
+    border: 0;
+    border-radius: 5px;
+    background: @primary-active;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    app-nav-menu .chevron,
+    app-nav-menu .section-expand,
+    app-nav-menu .tree-item,
+    app-header .mode-button,
+    .dialog-backdrop,
+    .settings-dialog {
+        animation: none;
+        transition: none;
+    }
+}
+
+.d-flex {
+    display: flex;
+}
+
+.jcsb {
+    justify-content: space-between;
+}
+
+.jcc {
+    justify-content: center;
+}

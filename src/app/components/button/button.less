@@ -1,0 +1,39 @@
+:host {
+	display: inline-flex;
+}
+
+.icon-button {
+	display: grid;
+	width: 24px;
+	height: 24px;
+	padding: 4px;
+	place-items: center;
+	border: 0;
+	border-radius: 4px;
+	background: transparent;
+	cursor: pointer;
+}
+
+.icon-button:hover {
+	background: fade(#007aff, 8%);
+}
+
+.icon-button:focus-visible {
+	outline: 2px solid #007aff;
+	outline-offset: 2px;
+}
+
+.icon-button img,
+.icon-button svg {
+	display: block;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-button svg {
+	fill: none;
+	stroke: #007aff;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}

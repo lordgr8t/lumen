@@ -1,0 +1,52 @@
+<div class="nav-menu">
+    <div class="header">
+        <div class="logo">
+            <img src="assets/icons/lumen-logo.svg" alt="">
+            <span>lumen</span>
+        </div>
+        <div class="button-group">
+            <app-button type="add-folder"></app-button>
+            <app-button type="add-article"></app-button>
+        </div>
+    </div>
+    <div class="tree">
+        @for (section of sections; track section.name) {
+            <section class="tree-section">
+                <button
+                    class="section-toggle"
+                    type="button"
+                    [attr.aria-expanded]="isExpanded(section.name)"
+                    (click)="toggleSection(section.name)">
+                    <svg class="chevron" [class.is-expanded]="isExpanded(section.name)" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="m6 3 5 5-5 5" />
+                    </svg>
+                    <span>{{ section.name }}</span>
+                </button>
+                <div
+                    class="section-expand"
+                    [class.is-expanded]="isExpanded(section.name)"
+                    [attr.aria-hidden]="isExpanded(section.name) ? null : 'true'"
+                    [attr.inert]="isExpanded(section.name) ? null : ''">
+                    <div class="section-items">
+                        @for (item of section.items; track item) {
+                            @if (!hiddenItems().has(item)) {
+                                <button
+                                    class="tree-item"
+                                    type="button"
+                                    [class.is-selected]="selectedItem() === item"
+                                    [attr.aria-current]="selectedItem() === item ? 'page' : null"
+                                    (click)="selectItem(item)">
+                                    <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true">
+                                        <path d="M4.5 1.75h4.25L12.5 5.5v8.75h-8z" />
+                                        <path d="M8.5 1.75V5.5h4M6.5 8h4M6.5 10.25h4" />
+                                    </svg>
+                                    <span>{{ item }}</span>
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>

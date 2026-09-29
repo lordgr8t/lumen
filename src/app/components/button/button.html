@@ -1,0 +1,13 @@
+<button
+	class="icon-button"
+	type="button"
+	[attr.aria-label]="buttonType() === 'add-folder' ? 'Create folder' : 'Create article'">
+	@if (buttonType() === 'add-folder') {
+		<img src="assets/icons/add-folder.svg" alt="">
+	} @else {
+		<svg viewBox="0 0 16 16" aria-hidden="true">
+			<path d="M3.25 1.75h6l3.5 3.5v4.5M9 1.9v3.6h3.6M5 8h3.5M5 10.5h2" />
+			<path d="m9.6 12.7 3.4-3.4 1.2 1.2-3.4 3.4-1.7.5z" />
+		</svg>
+	}
+</button>

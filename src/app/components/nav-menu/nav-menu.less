@@ -1,0 +1,123 @@
+@import 'src/variables.less';
+
+:host {
+    display: block;
+    flex: 0 0 280px;
+}
+
+.nav-menu {
+    width: 280px;
+    height: 100%;
+    overflow: hidden;
+    background: @background;
+    border-right: @border;
+    box-sizing: border-box;
+}
+
+.header,
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    height: 52px;
+    padding: 0 16px;
+    border-bottom: @border;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-group {
+    align-items: center;
+    gap: 8px;
+}
+
+.tree {
+    padding: 16px 12px;
+}
+
+.tree-section + .tree-section {
+    margin-top: 14px;
+}
+
+.section-toggle,
+.tree-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.section-toggle {
+    height: 24px;
+    padding: 0 6px;
+    gap: 4px;
+    color: @info;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.chevron {
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    fill: none;
+    stroke: @info;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+}
+
+.chevron.is-expanded {
+    transform: rotate(90deg);
+}
+
+.section-items {
+    display: grid;
+    min-height: 0;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.tree-item {
+    height: 32px;
+    padding: 0 12px 0 24px;
+    gap: 8px;
+    border-radius: 6px;
+    color: @primary;
+    font-size: 14px;
+}
+
+.tree-item.is-selected {
+    background: @primary-active-background;
+    color: @primary-active;
+}
+
+.file-icon {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.section-toggle:focus-visible,
+.tree-item:focus-visible {
+    outline: 2px solid @primary-active;
+    outline-offset: -2px;
+}

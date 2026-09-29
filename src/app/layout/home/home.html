@@ -1,0 +1,18 @@
+<main class="workspace">
+    <app-nav-menu [hiddenItems]="deletedItems()"></app-nav-menu>
+    <div class="workspace-content">
+        <app-header
+            [mode]="editorMode()"
+            (modeChange)="setEditorMode($event)"
+            (deleteArticle)="deleteArticle()"
+            (logout)="logout()"></app-header>
+        @defer (on immediate) {
+            <app-editor-wrapper
+                [mode]="editorMode()"
+                [deleted]="articleDeleted()"
+                (restoreArticle)="restoreArticle()"></app-editor-wrapper>
+        } @placeholder {
+            <main class="document-page" aria-label="Loading document"></main>
+        }
+    </div>
+</main>
